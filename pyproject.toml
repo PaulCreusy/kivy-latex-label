@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["kivy-latex-label"]
+
+[project]
+name = "kivy-latex-label"
+version = "1.0.0"
+authors = [{ name = "PaulCreusy", email = "paul.creusy@gmail.com" }]
+description = "A package that defines a new label class for Kivy to display text with LaTeX equations."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["matplotlib", "kivy>=2.0.0", "pillow"]
+keywords = ["kivy", "latex", "label"]
+
+[project.urls]
+Homepage = "https://github.com/PaulCreusy/kivy-latex-label"
+Issues = "https://github.com/PaulCreusy/kivy-latex-label/issues"
+Documentation = "https://github.com/PaulCreusy/kivy-latex-label"

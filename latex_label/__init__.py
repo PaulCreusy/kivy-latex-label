@@ -21,6 +21,12 @@ from .latex_label import (
     LatexLabel
 )
 
+#############
+# Constants #
+#############
+
+__version__ = "1.0.0"
+
 #########
 # Build #
 #########
