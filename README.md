@@ -42,3 +42,8 @@ FloatLayout:
         valign: "top"
         font_size: 20
 ```
+
+Here is how it looks like: 
+
+<img width="820" height="655" alt="image" src="https://github.com/user-attachments/assets/dc86ffd9-0316-4a73-9810-69a027c00dce" />
+
