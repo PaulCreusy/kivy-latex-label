@@ -70,7 +70,22 @@ def split_text_and_equations(text: str) -> list[tuple[Literal["text", "equation"
 
 
 def render_latex_string(latex_str: str, font_size: float):
-    print(latex_str)
+    """
+    Render a latex string into an image.
+
+    Parameters
+    ----------
+    latex_str : str
+        LaTeX string to render.
+    font_size : float
+        Font size to use.
+
+    Returns
+    -------
+    PIL.Image
+        Pillow image
+    """
+
     fig = plt.figure()
     ax = fig.add_axes([0, 0, 1, 1])
     ax.axis("off")

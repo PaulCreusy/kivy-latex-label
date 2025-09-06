@@ -17,7 +17,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dependencies = ["matplotlib", "kivy>=2.0.0", "pillow"]
+dependencies = ["matplotlib>=3.8.0", "kivy>=2.0.0", "pillow"]
 keywords = ["kivy", "latex", "label"]
 
 [project.urls]
