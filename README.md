@@ -1,5 +1,7 @@
 # Kivy Latex Label
 
+![PyPI - Version](https://img.shields.io/pypi/v/kivy-latex-label)![PyPI - Downloads](https://img.shields.io/pypi/dm/kivy-latex-label)
+
 This is a simple package that provides a special LatexLabel class to display text containing equations with kivy. No Latex installation is required, the rendering is performed using matplotlib.
 
 ## Installation
