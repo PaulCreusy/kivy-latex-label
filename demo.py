@@ -8,10 +8,6 @@ Demo app for the LatexLabel.
 
 # Kivy imports #
 
-# Disable back arrow
-from kivy.config import Config
-Config.set('kivy', 'exit_on_escape', '0')
-
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
