@@ -18,7 +18,7 @@ Here is a short demo with a python and kv files. To run it, the python should be
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
-from latex_label.latex_label import LatexLabel
+from kivy_latex_label import LatexLabel
 
 class DemoApp(App, Widget):
 

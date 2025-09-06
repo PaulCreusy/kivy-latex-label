@@ -14,7 +14,7 @@ from kivy.core.window import Window
 
 # Local imports #
 
-from latex_label.latex_label import LatexLabel
+from kivy_latex_label import LatexLabel
 
 #########
 # Class #
