@@ -6,7 +6,7 @@ This is a simple package that provides a special LatexLabel class to display tex
 
 ## Installation
 
-To use this widget, you can simply copy and paste the "latex_label" folder in your code and import the widget. A pip installation will possible in the future.
+To use this widget, you can simply copy and paste the "kivy_latex_label" folder in your code and import the widget. A pip installation will possible in the future.
 
 ## How to use it
 
