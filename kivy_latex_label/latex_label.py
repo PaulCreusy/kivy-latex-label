@@ -24,6 +24,7 @@ from kivy.properties import (
     NumericProperty,
     ColorProperty
 )
+from kivy.clock import Clock
 
 # Dependencies #
 
@@ -141,18 +142,24 @@ class LatexLabel(StackLayout):
     color = ColorProperty((1, 1, 1, 1))
     line_height = NumericProperty(2)
     _latex_cache = {}
+    _state_cache = {}
+    variables_in_state_cache = ["text", "font_size",
+                                "color", "line_height", "font_name"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bind(
-            text=self.update_content,
-            font_size=self.update_content,
+            text=self.plan_update_content,
+            font_size=self.plan_update_content,
             color=self.change_color,
-            line_height=self.update_content,
-            font_name=self.update_content,
+            line_height=self.plan_update_content,
+            font_name=self.plan_update_content,
         )
         self.update_content()
         self.change_color()
+
+    def plan_update_content(self, *_, **__):
+        Clock.schedule_once(self.update_content, 0.1)
 
     def remove_content(self):
         children_list = self.children[:]
@@ -164,6 +171,19 @@ class LatexLabel(StackLayout):
             child.color = self.color
 
     def update_content(self, *_, **__):
+        # Check if state has changed and skip if not
+        do_continue = False
+        for variable in self.variables_in_state_cache:
+            if variable not in self._state_cache:
+                do_continue = True
+                break
+            else:
+                if self._state_cache[variable] != getattr(self, variable):
+                    do_continue = True
+                    break
+        if not do_continue:
+            return
+
         # Remove previous content
         self.remove_content()
 
@@ -215,3 +235,7 @@ class LatexLabel(StackLayout):
 
                 # Add the image
                 self.add_widget(image)
+
+        # Update the state cache
+        for variable in self.variables_in_state_cache:
+            self._state_cache[variable] = getattr(self, variable)
