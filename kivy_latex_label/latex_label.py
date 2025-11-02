@@ -138,7 +138,7 @@ class LatexLabel(StackLayout):
     text = StringProperty()
     font_size = NumericProperty(11)
     color = ColorProperty((1, 1, 1, 1))
-    line_height = NumericProperty()
+    line_height = NumericProperty(2)
     _latex_cache = {}
 
     def __init__(self, **kwargs):
@@ -147,6 +147,7 @@ class LatexLabel(StackLayout):
             text=self.update_content,
             font_size=self.update_content,
             color=self.change_color,
+            line_height=self.update_content,
         )
         self.update_content()
         self.change_color()
@@ -163,9 +164,6 @@ class LatexLabel(StackLayout):
     def update_content(self, *_, **__):
         # Remove previous content
         self.remove_content()
-
-        # Update line height
-        self.line_height = self.font_size * 2
 
         # Split text and equations
         content = split_text_and_equations(self.text)
@@ -185,7 +183,7 @@ class LatexLabel(StackLayout):
                     label = CroppedLabel(
                         text=word + " ",
                         color=self.color,
-                        height=self.line_height,
+                        height=self.font_size * self.line_height,
                         font_size=self.font_size
                     )
 
@@ -208,7 +206,7 @@ class LatexLabel(StackLayout):
                     fit_mode="contain",
                     size_hint=(None, None),
                     width=texture.size[0],
-                    height=self.line_height,
+                    height=self.font_size * self.line_height,
                     color=self.color
                 )
 
