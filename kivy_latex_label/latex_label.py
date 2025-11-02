@@ -216,12 +216,16 @@ class LatexLabel(StackLayout):
             elif content_type == "equation":
 
                 # Create a texture if not in cache
-                img = render_latex_string(
-                    content_str, self.font_size * 0.9)
-                buf2 = io.BytesIO()
-                img.save(buf2, format="png")
-                buf2.seek(0)
-                texture = CoreImage(buf2, ext="png").texture
+                if content_str not in self._latex_cache:
+                    img = render_latex_string(
+                        content_str, self.font_size * 0.9)
+                    buf2 = io.BytesIO()
+                    img.save(buf2, format="png")
+                    buf2.seek(0)
+                    texture = CoreImage(buf2, ext="png").texture
+                    self._latex_cache[content_str] = texture
+                else:
+                    texture = self._latex_cache[content_str]
 
                 # Create the image
                 image = KivyImage(
