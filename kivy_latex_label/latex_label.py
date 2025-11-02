@@ -139,6 +139,8 @@ class LatexLabel(StackLayout):
             font_size=self.update_content,
             color=self.change_color,
         )
+        self.update_content()
+        self.change_color()
 
     def remove_content(self):
         children_list = self.children[:]
