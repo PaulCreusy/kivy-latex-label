@@ -11,6 +11,7 @@ Module to define a label able to plot both text and equations.
 import re
 import io
 from typing import Literal
+import warnings
 
 # Kivy imports #
 
@@ -27,6 +28,8 @@ from kivy.properties import (
 # Dependencies #
 
 from PIL import Image
+import matplotlib
+matplotlib.set_loglevel("warning")
 import matplotlib.pyplot as plt
 plt.rcParams.update({"mathtext.fontset": "cm"})
 
@@ -91,18 +94,24 @@ def render_latex_string(latex_str: str, font_size: float):
     ax.axis("off")
     ax.text(0.5, 0.5, f"${latex_str}$", fontsize=font_size,
             ha="center", va="center", color=(1., 1., 1., 1.))
-    buf = io.BytesIO()
-    plt.savefig(
-        buf,
-        format="png",
-        bbox_inches="tight",
-        pad_inches=0.0,
-        transparent=True
-    )
-    plt.close(fig)
-    buf.seek(0)
 
-    img = Image.open(buf).convert("RGBA")
+    try:
+        buf = io.BytesIO()
+        plt.savefig(
+            buf,
+            format="png",
+            bbox_inches="tight",
+            pad_inches=0.0,
+            transparent=True
+        )
+        plt.close(fig)
+        buf.seek(0)
+
+        img = Image.open(buf).convert("RGBA")
+    except ValueError:
+        warnings.warn(
+            "Unsupported latex command in the given string: " + latex_str, category=SyntaxWarning)
+        img = Image.new("RGBA", (5, 10))
     bbox = img.getbbox()
     if bbox:
         img = img.crop(bbox)
