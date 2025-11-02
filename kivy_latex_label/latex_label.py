@@ -137,6 +137,7 @@ class LatexLabel(StackLayout):
 
     text = StringProperty()
     font_size = NumericProperty(11)
+    font_name = StringProperty("Roboto")
     color = ColorProperty((1, 1, 1, 1))
     line_height = NumericProperty(2)
     _latex_cache = {}
@@ -148,6 +149,7 @@ class LatexLabel(StackLayout):
             font_size=self.update_content,
             color=self.change_color,
             line_height=self.update_content,
+            font_name=self.update_content,
         )
         self.update_content()
         self.change_color()
@@ -184,7 +186,8 @@ class LatexLabel(StackLayout):
                         text=word + " ",
                         color=self.color,
                         height=self.font_size * self.line_height,
-                        font_size=self.font_size
+                        font_size=self.font_size,
+                        font_name=self.font_name,
                     )
 
                     # Add the label
