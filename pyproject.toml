@@ -7,7 +7,7 @@ include = ["kivy_latex_label"]
 
 [project]
 name = "kivy-latex-label"
-version = "1.0.3"
+version = "1.0.4"
 authors = [{ name = "PaulCreusy", email = "paul.creusy@gmail.com" }]
 description = "A package that defines a new label class for Kivy to display text with LaTeX equations."
 readme = "README.md"
