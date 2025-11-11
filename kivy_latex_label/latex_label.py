@@ -146,7 +146,7 @@ class LatexLabel(StackLayout):
     variables_in_state_cache = ["text", "font_size",
                                 "color", "line_height", "font_name"]
 
-    def __init__(self, **kwargs):
+    def __init__(self, markup=False, **kwargs):
         super().__init__(**kwargs)
         self.bind(
             text=self.plan_update_content,
@@ -157,6 +157,7 @@ class LatexLabel(StackLayout):
         )
         self.update_content()
         self.change_color()
+        self.markup = markup
 
     def plan_update_content(self, *_, **__):
         Clock.schedule_once(self.update_content, 0.1)
@@ -208,6 +209,7 @@ class LatexLabel(StackLayout):
                         height=self.font_size * self.line_height,
                         font_size=self.font_size,
                         font_name=self.font_name,
+                        markup=self.markup
                     )
 
                     # Add the label
