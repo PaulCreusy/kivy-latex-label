@@ -22,7 +22,9 @@ from kivy.uix.label import Label
 from kivy.properties import (
     StringProperty,
     NumericProperty,
-    ColorProperty
+    ColorProperty,
+    ListProperty,
+    AliasProperty,
 )
 from kivy.clock import Clock
 
@@ -145,6 +147,7 @@ class LatexLabel(StackLayout):
     _state_cache = {}
     variables_in_state_cache = ["text", "font_size",
                                 "color", "line_height", "font_name"]
+    update_id = NumericProperty(0)
 
     def __init__(self, markup=False, **kwargs):
         self.markup = markup
@@ -163,6 +166,8 @@ class LatexLabel(StackLayout):
         Clock.schedule_once(self.update_content, 0.1)
 
     def remove_content(self):
+
+        # Clean children widget
         children_list = self.children[:]
         for child in children_list:
             self.remove_widget(child)
@@ -245,3 +250,19 @@ class LatexLabel(StackLayout):
         # Update the state cache
         for variable in self.variables_in_state_cache:
             self._state_cache[variable] = getattr(self, variable)
+
+        # Schedule update id
+        Clock.schedule_once(self.increase_update_id, 0.1)
+
+    def increase_update_id(self, *_):
+        self.update_id += 1
+
+    def get_total_width(self, *_):
+        total_width = 0
+        for child in self.children:
+            total_width += child.texture_size[0]
+
+        return total_width
+
+    total_width = AliasProperty(get_total_width, None, bind=[
+                                "update_id"], cache=True)
