@@ -148,6 +148,8 @@ class LatexLabel(StackLayout):
     variables_in_state_cache = ["text", "font_size",
                                 "color", "line_height", "font_name"]
     update_id = NumericProperty(0)
+    _is_in_bold_part = False
+    _is_in_italic_part = False
 
     def __init__(self, markup=False, **kwargs):
         self.markup = markup
@@ -207,9 +209,36 @@ class LatexLabel(StackLayout):
                 # Iterate over the words
                 for word in words_list:
 
+                    # Build text of the label
+                    text = word + " "
+
+                    # Deal with font effects
+                    if self.markup:
+                        if "[b]" in word:
+                            self._is_in_bold_part = True
+                        if "[i]" in word:
+                            self._is_in_italic_part = True
+
+                        # Apply effect
+                        if self._is_in_bold_part:
+                            if "[b]" not in text:
+                                text = "[b]" + text
+                            if "[/b]" not in text:
+                                text = text + "[/b]"
+                        if self._is_in_italic_part:
+                            if "[i]" not in text:
+                                text = "[i]" + text
+                            if "[/i]" not in text:
+                                text = text + "[/i]"
+
+                        if "[/b]" in word:
+                            self._is_in_bold_part = False
+                        if "[/i]" in word:
+                            self._is_in_italic_part = False
+
                     # Create a label
                     label = CroppedLabel(
-                        text=word + " ",
+                        text=text,
                         color=self.color,
                         height=self.font_size * self.line_height,
                         font_size=self.font_size,
