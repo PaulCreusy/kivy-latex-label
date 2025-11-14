@@ -34,10 +34,11 @@ class DemoApp(App, Widget):
         Window.clearcolor = (1, 1, 1, 1)
 
     def print_total_width(self, *_):
-        print(self.root_window.children[0].ids.sindy.total_width)
+        print("total width :",
+              self.root_window.children[0].ids.sindy.total_width)
 
     def on_start(self):
-        Clock.schedule_interval(self.print_total_width, 1)
+        Clock.schedule_once(self.print_total_width, 1)
         return super().on_start()
 
 

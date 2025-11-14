@@ -252,12 +252,23 @@ class LatexLabel(StackLayout):
             self._state_cache[variable] = getattr(self, variable)
 
         # Schedule update id
-        Clock.schedule_once(self.increase_update_id, 0.1)
+        Clock.schedule_once(self.increase_update_id)
 
     def increase_update_id(self, *_):
         self.update_id += 1
 
     def get_total_width(self, *_):
+        """
+        Return the sum of the width of all elements of the latex label.
+
+        This is equivalent to the width of the widget if there is no line break.
+
+        Returns
+        -------
+        int
+            Width in pixels.
+        """
+
         total_width = 0
         for child in self.children:
             total_width += child.texture_size[0]
@@ -265,4 +276,4 @@ class LatexLabel(StackLayout):
         return total_width
 
     total_width = AliasProperty(get_total_width, None, bind=[
-                                "update_id"], cache=True)
+                                "update_id"], cache=False, rebind=False)
